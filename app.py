@@ -1,34 +1,40 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import numpy as np
+import matplotlib.pyplot as plt
 
-# ===============================
+# ==============================
 # Page Configuration
-# ===============================
+# ==============================
+
 st.set_page_config(
     page_title="BigMart Sales Prediction",
     page_icon="🛒",
     layout="wide"
 )
 
-# ===============================
+# ==============================
 # Load Model
-# ===============================
+# ==============================
+
 with open("bigmart_best_model.pkl", "rb") as f:
     model, sklearn_version = pickle.load(f)
 
-# ===============================
-# Sidebar (Portfolio Section)
-# ===============================
+# ==============================
+# Sidebar Portfolio
+# ==============================
+
 st.sidebar.title("👨‍💻 About Me")
 
 st.sidebar.markdown("""
-### Abhishek Shelke  
-🎓 Master's in Computer Science  
-ASM's CSIT, Pimpri  
-Savitribai Phule Pune University  
+### Abhishek Shelke
 
-💡 Interested in:
+🎓 **Master's in Computer Science**  
+ASM's CSIT, Pimpri  
+Savitribai Phule Pune University
+
+💡 **Interests**
 - Artificial Intelligence
 - Machine Learning
 - Data Science
@@ -36,13 +42,13 @@ Savitribai Phule Pune University
 
 st.sidebar.markdown("---")
 
-st.sidebar.markdown("### 🔗 Connect With Me")
+st.sidebar.markdown("### 🔗 Connect")
 
 st.sidebar.markdown(
 """
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue)](https://www.linkedin.com/in/abhishek-s-b98895249)
+[LinkedIn](https://www.linkedin.com/in/abhishek-s-b98895249)
 
-[![GitHub](https://img.shields.io/badge/GitHub-black)](https://github.com/Redskull2525)
+[GitHub](https://github.com/Redskull2525)
 """
 )
 
@@ -53,33 +59,28 @@ st.sidebar.markdown("""
 
 **BigMart Sales Prediction**
 
-This ML model predicts the expected sales of a product in a BigMart outlet using features like:
-
-- Item Type
-- Item Weight
-- Item Visibility
-- MRP
-- Outlet Type
-- Outlet Location
+This ML model predicts sales of a product in a BigMart outlet using multiple product and outlet features.
 """)
 
-# ===============================
-# Main Page
-# ===============================
+# ==============================
+# Main Title
+# ==============================
 
-st.title("🛒 BigMart Sales Prediction App")
+st.title("🛒 BigMart Sales Prediction")
 
-st.markdown(f"""
-This application predicts **Item Outlet Sales** using a trained Machine Learning model.
+st.markdown(
+f"""
+This app predicts **Item Outlet Sales** using a trained Machine Learning model.
 
 Model trained using **scikit-learn v{sklearn_version}**
-""")
+"""
+)
 
-st.markdown("---")
+st.divider()
 
-# ===============================
-# Input Section
-# ===============================
+# ==============================
+# Input Layout
+# ==============================
 
 col1, col2 = st.columns(2)
 
@@ -159,9 +160,9 @@ with col2:
         15
     )
 
-# ===============================
+# ==============================
 # Prediction
-# ===============================
+# ==============================
 
 if st.button("🔍 Predict Sales"):
 
@@ -182,3 +183,46 @@ if st.button("🔍 Predict Sales"):
     prediction = model.predict(input_df)[0]
 
     st.success(f"📈 Predicted Item Outlet Sales: ₹ {prediction:,.2f}")
+
+# ==============================
+# Feature Importance Section
+# ==============================
+
+st.divider()
+
+st.subheader("📊 Model Insights")
+
+try:
+    importances = model.named_steps['regressor'].feature_importances_
+
+    feature_names = model.named_steps['preprocessor'].get_feature_names_out()
+
+    importance_df = pd.DataFrame({
+        "Feature": feature_names,
+        "Importance": importances
+    })
+
+    importance_df = importance_df.sort_values(by="Importance", ascending=False).head(10)
+
+    fig, ax = plt.subplots()
+    ax.barh(importance_df["Feature"], importance_df["Importance"])
+    ax.invert_yaxis()
+
+    st.pyplot(fig)
+
+except:
+    st.info("Feature importance not available for this model.")
+
+# ==============================
+# Footer
+# ==============================
+
+st.divider()
+
+st.markdown(
+"""
+Built with ❤️ using **Streamlit & Scikit-Learn**
+
+© 2026 Abhishek Shelke
+"""
+)
