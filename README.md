@@ -380,8 +380,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Abhishek Shelke**
 - LinkedIn: [www.linkedin.com/in/abhishek-s-b98895249](https://www.linkedin.com/in/abhishek-s-b98895249)
-- GitHub: [@your-username](https://github.com/your-username)
-- Email: [your-email@example.com]
+- GitHub: [Abhishek Shelke](https://github.com/Redskull2525)
+- Email: [abhishekshelke2525@gmail.com]
 
 Project Link: [https://github.com/your-username/bigmart-sales-prediction](https://github.com/your-username/bigmart-sales-prediction)
 
