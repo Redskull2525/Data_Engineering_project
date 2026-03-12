@@ -383,7 +383,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - GitHub: [Abhishek Shelke](https://github.com/Redskull2525)
 - Email: [abhishekshelke2525@gmail.com]
 
-Project Link: [https://github.com/your-username/bigmart-sales-prediction](https://github.com/your-username/bigmart-sales-prediction)
+Project Link: [https://github.com/Redskull2525/Data_Engineering_project](https://github.com/Redskull2525/Data_Engineering_project)
 
 ---
 
